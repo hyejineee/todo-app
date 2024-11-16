@@ -1,11 +1,8 @@
-import type { TokenDataSource } from "../model";
-import type { AuthResponseDTO } from "../model/dto/authResponseDto";
-
-export interface IAuthRepository {
-  login(req: { email: string; password: string }): Promise<AuthResponseDTO>;
-  signUp(req: { email: string; password: string }): Promise<AuthResponseDTO>;
-}
+import type { TokenDataSource, AuthDataSource } from '../model';
 
 export class AuthRepository {
-  constructor(private tokenDataSource: TokenDataSource) {}
+  constructor(
+    private tokenDataSource: TokenDataSource,
+    private authDataSource: AuthDataSource,
+  ) {}
 }
