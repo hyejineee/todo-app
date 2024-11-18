@@ -39,6 +39,10 @@ export class Password {
     };
   }
 
+  public getValue() {
+    return this.value;
+  }
+
   public equals(other: Password): boolean {
     return this.value === other.value;
   }

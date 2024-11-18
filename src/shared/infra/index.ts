@@ -1,2 +1,1 @@
-export * from './HttpClient';
-export * from './tokenDataSource';
+export * from './httpClient';
