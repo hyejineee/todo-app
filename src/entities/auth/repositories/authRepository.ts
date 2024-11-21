@@ -2,7 +2,7 @@ import type { Email, Password } from '@shared';
 import { AuthToken, IAuthRepository, type AuthDataSource } from '../model';
 
 export class AuthRepository implements IAuthRepository {
-  constructor(private authDataSource: AuthDataSource) {}
+  constructor(private authDataSource: AuthDataSource<true>) {}
 
   async login(params: {
     email: Email;
