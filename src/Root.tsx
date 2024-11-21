@@ -1,7 +1,12 @@
-import { DiContainerProvider } from 'app/DiContainer';
+import { DiContainerProvider, router } from '@app';
+import { RouterProvider } from 'react-router-dom';
 
 function Root() {
-  return <DiContainerProvider baseUrl={''}>app</DiContainerProvider>;
+  return (
+    <DiContainerProvider baseUrl={''}>
+      <RouterProvider router={router} />
+    </DiContainerProvider>
+  );
 }
 
 export default Root;

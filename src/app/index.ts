@@ -1,1 +1,2 @@
-export * from './DiContainer';
+export * from './diContainer';
+export * from './route';
