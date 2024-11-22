@@ -1,5 +1,9 @@
-import type { IAuthRepository, ITokenRepository } from '@entities';
-import type { Email, Password } from '@shared';
+import type {
+  Email,
+  IAuthRepository,
+  ITokenRepository,
+  Password,
+} from '@entities';
 
 export class LoginUseCase {
   constructor(

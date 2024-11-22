@@ -1,5 +1,4 @@
-import type { IAuthRepository } from '@entities';
-import type { Email, Password } from '@shared';
+import type { Email, IAuthRepository, Password } from '@entities';
 
 export class RegisterUserUseCase {
   constructor(private readonly authRepository: IAuthRepository) {}
