@@ -1,10 +1,11 @@
 export * from './schema';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { createFormComponent, Email, Password } from '@shared';
-import { loginFormSchema, type LoginFormType } from './schema';
 import { useDiContainer } from '@app';
-import { useRef } from 'react';
+import { Email, Password } from '@entities';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { createFormComponent } from '@shared';
 import { LoginUseCase } from 'features/auth/useCases';
+import { useRef } from 'react';
+import { loginFormSchema, type LoginFormType } from './schema';
 
 const { Form } = createFormComponent<LoginFormType>();
 
@@ -30,6 +31,7 @@ export const LoginForm = () => {
         password: password.value,
       });
     } catch (e) {
+      // TODO : 에러처리에 대한 로직은 어떻게 구조화 해야 하는가??
       alert(`문제가 발생했당 : ${e}`);
     }
   };
