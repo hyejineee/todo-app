@@ -1,7 +1,6 @@
-import type { Email, Password } from '@shared';
-import type { AuthToken } from '../domain';
+import type { Email, Password, Token } from '@shared';
 
 export interface IAuthRepository {
-  login(params: { email: Email; password: Password }): Promise<AuthToken>;
-  register(params: { email: Email; password: Password }): Promise<AuthToken>;
+  login(params: { email: Email; password: Password }): Promise<Token>;
+  register(params: { email: Email; password: Password }): Promise<Token>;
 }

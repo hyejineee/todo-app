@@ -1,5 +1,5 @@
 export type { IAuthRepository, ITokenRepository } from './model';
 
-export { AuthRepository, TokenRepository } from './repositories';
 export { AuthRemoteDataSource, TokenLocalDataSource } from './datasources';
-export { AuthToken } from './model';
+export { Email, Password, Token } from './model';
+export { AuthRepository, TokenRepository } from './repositories';
