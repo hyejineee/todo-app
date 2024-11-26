@@ -1,9 +1,5 @@
-import type {
-  Email,
-  IAuthRepository,
-  ITokenRepository,
-  Password,
-} from '@entities';
+import type { Email, Password } from '@domain/auth';
+import type { IAuthRepository, ITokenRepository } from '../repositories';
 
 export class LoginUseCase {
   constructor(

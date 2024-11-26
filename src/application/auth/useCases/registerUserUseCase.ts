@@ -1,5 +1,5 @@
-import type { Email, Password } from '@domain';
-import type { IAuthRepository } from '@repositories';
+import type { Email, Password } from '@domain/auth';
+import type { IAuthRepository } from '../repositories';
 
 export class RegisterUserUseCase {
   constructor(private readonly authRepository: IAuthRepository) {}
