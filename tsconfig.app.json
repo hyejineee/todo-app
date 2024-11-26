@@ -22,6 +22,9 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+
     "baseUrl": "./src",
     "paths": {
       "@shared": ["shared"],
