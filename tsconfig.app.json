@@ -25,11 +25,14 @@
     "baseUrl": "./src",
     "paths": {
       "@shared": ["shared"],
-      "@entities": ["entities"],
-      "@features": ["features"],
-      "@widgets": ["widgets"],
-      "@pages": ["pages"],
-      "@app": ["app"]
+      "@domain": ["domain"],
+      "@domain/*": ["domain/*"],
+      "@application": ["application"],
+      "@application/*": ["application/*"],
+      "@infra": ["infra"],
+      "@infra/*": ["infra/*"],
+      "@presentation": ["presentation"],
+      "@presentation/*": ["presentation/*"]
     }
   },
   "include": ["src"]

@@ -1,8 +1,3 @@
-export type DataSourceReturnType<
-  Remote extends boolean,
-  Return,
-> = Remote extends true ? Promise<Return> : Return;
-
 type FailResult = {
   isSuccess: false;
   errors: ValidationError[];

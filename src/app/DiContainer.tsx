@@ -1,13 +1,7 @@
-import {
-  AuthRemoteDataSource,
-  AuthRepository,
-  TokenLocalDataSource,
-  TokenRepository,
-  type IAuthRepository,
-  type ITokenRepository,
-} from '@entities';
-import { HttpClient } from '@shared';
-import type { AuthDataSource, TokenDataSource } from 'entities/auth/model';
+import { AuthRepository, TokenRepository } from '@infra';
+import { AuthRemoteDataSource, TokenLocalDataSource } from '@infra/dataSources';
+import { HttpClient } from '@infra/network';
+import type { IAuthRepository, ITokenRepository } from '@repositories';
 import { createContext, useContext, type ReactNode } from 'react';
 
 // TODO : DiContainer를 context로 만들어야 하는가? 그냥 상위 파일에 선언해서 사용할 수 있는거 아닌가...? 리액트와 상관없는데...??
@@ -28,8 +22,8 @@ interface DiContainer {
   };
 
   dataSources: {
-    authDataSource: AuthDataSource<true>;
-    tokenDataSource: TokenDataSource;
+    authDataSource: AuthRemoteDataSource;
+    tokenDataSource: TokenLocalDataSource;
   };
 }
 
