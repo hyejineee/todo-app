@@ -1,9 +1,17 @@
 import type { IAuthRepository } from '@application/auth';
 import { Token, type Email, type Password } from '@domain/auth';
 import type { AuthRemoteDataSource } from '@infra/dataSources';
+import { DI_TYPES } from '@shared';
+import { inject, injectable } from 'inversify';
 
+@injectable()
 export class AuthRepository implements IAuthRepository {
-  constructor(private authDataSource: AuthRemoteDataSource) {}
+  private authDataSource: AuthRemoteDataSource;
+  constructor(
+    @inject(DI_TYPES.AuthRemoteDataSource) authDataSource: AuthRemoteDataSource,
+  ) {
+    this.authDataSource = authDataSource;
+  }
 
   async login(params: { email: Email; password: Password }): Promise<Token> {
     try {

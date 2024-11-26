@@ -1,8 +1,15 @@
 import type { AuthResponseDTO } from '@infra/dto';
 import type { HttpClient } from '@infra/network';
+import { DI_TYPES } from '@shared';
+import { inject, injectable } from 'inversify';
 
+@injectable()
 export class AuthRemoteDataSource {
-  constructor(private httpClient: HttpClient) {}
+  private httpClient: HttpClient;
+
+  constructor(@inject(DI_TYPES.HttpClient) httpClient: HttpClient) {
+    this.httpClient = httpClient;
+  }
 
   static API_KEY = {
     LOGIN: '/users/login',

@@ -1,9 +1,18 @@
 import type { ITokenRepository } from '@application/auth';
 import { Token } from '@domain/auth';
 import type { TokenLocalDataSource } from '@infra/dataSources';
+import { DI_TYPES } from '@shared';
+import { inject, injectable } from 'inversify';
 
+@injectable()
 export class TokenRepository implements ITokenRepository {
-  constructor(private tokenDataSource: TokenLocalDataSource) {}
+  private tokenDataSource: TokenLocalDataSource;
+  constructor(
+    @inject(DI_TYPES.TokenLocalDataSource)
+    tokenDataSource: TokenLocalDataSource,
+  ) {
+    this.tokenDataSource = tokenDataSource;
+  }
 
   save(token: Token): void {
     this.tokenDataSource.saveToken(token.getValue());

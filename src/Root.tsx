@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 
+import { router } from '@shared';
 import { RouterProvider } from 'react-router-dom';
 
 function Root() {
