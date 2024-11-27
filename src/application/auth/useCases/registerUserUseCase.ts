@@ -1,5 +1,5 @@
 import type { Email, Password } from '@domain/auth';
-import { DI_TYPES } from '@shared';
+import { DI_TYPES } from '@shared/config';
 import { inject, injectable } from 'inversify';
 import type { IAuthRepository } from '../repositories';
 

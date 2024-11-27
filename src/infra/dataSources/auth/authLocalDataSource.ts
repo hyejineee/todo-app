@@ -1,6 +1,6 @@
 import type { AuthResponseDTO } from '@infra/dto';
 import type { HttpClient } from '@infra/network';
-import { DI_TYPES } from '@shared';
+import { DI_TYPES } from '@shared/config';
 import { inject, injectable } from 'inversify';
 
 @injectable()

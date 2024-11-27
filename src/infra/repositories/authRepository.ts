@@ -1,7 +1,7 @@
 import type { IAuthRepository } from '@application/auth';
 import { Token, type Email, type Password } from '@domain/auth';
 import type { AuthRemoteDataSource } from '@infra/dataSources';
-import { DI_TYPES } from '@shared';
+import { DI_TYPES } from '@shared/config';
 import { inject, injectable } from 'inversify';
 
 @injectable()

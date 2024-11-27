@@ -4,9 +4,9 @@ import {
   type IAuthRepository,
   type ITokenRepository,
 } from '@application/auth';
-import { AuthRepository, TokenRepository } from '@infra';
 import { AuthRemoteDataSource, TokenLocalDataSource } from '@infra/dataSources';
 import { HttpClient } from '@infra/network';
+import { AuthRepository, TokenRepository } from '@infra/repositories';
 import { Container } from 'inversify';
 import { DI_TYPES } from './diTypes';
 

@@ -1,7 +1,7 @@
 import type { ITokenRepository } from '@application/auth';
 import { Token } from '@domain/auth';
 import type { TokenLocalDataSource } from '@infra/dataSources';
-import { DI_TYPES } from '@shared';
+import { DI_TYPES } from '@shared/config';
 import { inject, injectable } from 'inversify';
 
 @injectable()

@@ -1,1 +1,1 @@
-export { default as createFormComponent } from './Form';
+export { default as createFormComponents } from './Form';

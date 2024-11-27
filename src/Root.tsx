@@ -1,10 +1,12 @@
 import 'reflect-metadata';
 
+import { router } from '@shared/config';
+import { RouterProvider } from 'react-router-dom';
+
 function Root() {
   return (
     <>
-      <>sdfsdf</>
-      {/* <RouterProvider router={router} /> */}
+      <RouterProvider router={router} />
     </>
   );
 }
