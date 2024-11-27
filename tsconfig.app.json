@@ -28,6 +28,7 @@
     "baseUrl": "./src",
     "paths": {
       "@shared": ["shared"],
+      "@shared/*": ["shared/*"],
       "@domain": ["domain"],
       "@domain/*": ["domain/*"],
       "@application": ["application"],
