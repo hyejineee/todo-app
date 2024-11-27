@@ -1,14 +1,21 @@
-export * from './schema';
-
 import type { LoginUseCase } from '@application/auth';
 import { Email, Password } from '@domain/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createFormComponent, DI_TYPES, diContainer } from '@shared';
-import { loginFormSchema, type LoginFormType } from './schema';
+import { DI_TYPES, diContainer } from '@shared/config';
+import { createFormComponents } from '@shared/ui';
 
-const { Form } = createFormComponent<LoginFormType>();
+import { z } from 'zod';
 
-export const LoginForm = () => {
+const loginFormSchema = z.object({
+  email: Email.schema,
+  password: Password.schema,
+});
+
+type LoginFormType = z.infer<typeof loginFormSchema>;
+
+const { Form } = createFormComponents<LoginFormType>();
+
+const LoginFormContent = () => {
   const login = async (formValue: LoginFormType) => {
     try {
       const email = Email.create(formValue.email);
@@ -26,12 +33,21 @@ export const LoginForm = () => {
       alert(`문제가 발생했당 : ${e}`);
     }
   };
-
   return (
-    <Form mode="onChange" resolver={zodResolver(loginFormSchema)}>
+    <>
       <Form.Field name="email" />
       <Form.Field name="password" />
       <Form.Submit onClick={login}>로그인</Form.Submit>
+    </>
+  );
+};
+
+const LoginForm = () => {
+  return (
+    <Form mode="onChange" resolver={zodResolver(loginFormSchema)}>
+      <LoginFormContent />
     </Form>
   );
 };
+
+export default LoginForm;
