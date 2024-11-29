@@ -1,4 +1,4 @@
-import type { Result } from '@shared';
+import type { Result } from '@shared/types';
 import { z } from 'zod';
 
 export class Email {
@@ -12,10 +12,10 @@ export class Email {
     if (!result.success) {
       return {
         isSuccess: false,
-        errors: result.error.errors.map(({ code, message, path }) => ({
+        errors: result.error.errors.map(({ code, message }) => ({
           code,
           msg: message,
-          path: path[0] as string,
+          path: 'email',
         })),
       };
     }
