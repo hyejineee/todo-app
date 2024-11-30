@@ -25,18 +25,19 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
 
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "@shared": ["shared"],
-      "@shared/*": ["shared/*"],
-      "@domain": ["domain"],
-      "@domain/*": ["domain/*"],
-      "@application": ["application"],
-      "@application/*": ["application/*"],
-      "@infra": ["infra"],
-      "@infra/*": ["infra/*"],
-      "@presentation": ["presentation"],
-      "@presentation/*": ["presentation/*"]
+      "@/*": ["./src/*"],
+      "@shared": ["./src/shared"],
+      "@shared/*": ["./src/shared/*"],
+      "@domain": ["./src/domain"],
+      "@domain/*": ["./src/domain/*"],
+      "@application": ["./src/application"],
+      "@application/*": ["./src/application/*"],
+      "@infra": ["./src/infra"],
+      "@infra/*": ["./src/infra/*"],
+      "@presentation": ["./src/presentation"],
+      "@presentation/*": ["./src/presentation/*"]
     }
   },
   "include": ["src"]
