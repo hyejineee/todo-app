@@ -17,10 +17,10 @@ export class Password {
     if (!result.success) {
       return {
         isSuccess: false,
-        errors: result.error.errors.map(({ code, path, message }) => ({
+        errors: result.error.errors.map(({ code, message }) => ({
           code,
           msg: message,
-          path: path[0] as string,
+          path: 'password',
         })),
       };
     }
