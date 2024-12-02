@@ -21,7 +21,7 @@ export const AuthPage = () => {
         alignItems: 'center',
       }}
     >
-      <Card css={{ minWidth: '50%', minHeight: '50%' }}>
+      <Card css={{ width: '50%', height: '50%', maxWidth: 400, minWidth: 300 }}>
         <CardHeader>
           <CardTitle>{isSignInForm ? 'Sign In' : 'Sign Up'}</CardTitle>
         </CardHeader>

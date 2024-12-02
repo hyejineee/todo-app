@@ -4,7 +4,15 @@ import { Outlet } from 'react-router-dom';
 
 export const TodosPage = () => {
   return (
-    <Row css={{ padding: 24, width: '100%', height: '100%', gap: 16 }}>
+    <Row
+      css={{
+        padding: '50px 200px',
+        width: '100%',
+        height: '100%',
+        gap: 16,
+        margin: '0 auto',
+      }}
+    >
       <Card css={{ width: '35%', height: '100%', padding: 16 }}>
         todo list page
       </Card>
