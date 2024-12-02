@@ -1,19 +1,23 @@
 import { Priority, Status, Title } from '../vo';
+import type Content from '../vo/content';
 
 export default class Todo {
-  private id: string;
+  private readonly id: string;
   private title: Title;
   private status: Status;
+  private content: Content;
   private priority: Priority;
 
   constructor(
     id: string,
     title: Title,
+    content: Content,
     status: Status = Status.NOT_STARTED,
     priority: Priority = Priority.NORMAL,
   ) {
     this.id = id;
     this.title = title;
+    this.content = content;
     this.status = status;
     this.priority = priority;
   }
@@ -33,12 +37,21 @@ export default class Todo {
     return this;
   }
 
+  updateContent(content: Content): Todo {
+    this.content = content;
+    return this;
+  }
+
   getId(): string {
     return this.id;
   }
 
   getTitle(): Title {
     return this.title;
+  }
+
+  getContent(): Content {
+    return this.content;
   }
 
   getStatus(): Status {
