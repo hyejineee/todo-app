@@ -1,8 +1,8 @@
-type FailResult = {
+export type FailResult = {
   isSuccess: false;
   errors: ValidationError[];
 };
-type SuccessResult<T> = {
+export type SuccessResult<T> = {
   isSuccess: true;
   value: T;
 };
@@ -13,4 +13,18 @@ export interface ValidationError {
   code: string;
   msg: string;
   path?: string;
+}
+
+export type PrimitiveType = string | number | boolean | symbol | bigint;
+
+export function isFailResult(
+  result: FailResult | SuccessResult<any>,
+): result is FailResult {
+  return result.isSuccess === false;
+}
+
+export function isSuccessResult<T>(
+  result: FailResult | SuccessResult<T>,
+): result is SuccessResult<T> {
+  return result.isSuccess === true;
 }

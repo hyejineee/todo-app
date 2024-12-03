@@ -1,12 +1,21 @@
-import { TodoForm } from '@/presentation/entities/todo';
-import { Column } from '@/shared/ui';
-import { Button } from '@/shared/ui/components/button';
+import type CreateTodoUseCase from '@application/todo/useCases/CreateTodoUseCase';
+import { Todo } from '@domain/todo';
+import { TodoForm, type TodoFormVOType } from '@presentation/entities/todo';
+import { DI_TYPES, diContainer } from '@shared/config';
 
 export const CreateTodoForm = () => {
-  return (
-    <Column>
-      <Button>생성하기</Button>
-      <TodoForm />
-    </Column>
-  );
+  const createTodo = async (formValue: TodoFormVOType) => {
+    try {
+      const todo = new Todo({
+        ...formValue,
+      });
+      await diContainer
+        .get<CreateTodoUseCase>(DI_TYPES.CreateTodoUseCase)
+        .execute(todo);
+    } catch (e) {
+      // TODO: 에러 처리 해야댓
+      alert(e);
+    }
+  };
+  return <TodoForm onSubmit={createTodo} buttonText="Create" />;
 };

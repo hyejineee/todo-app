@@ -8,14 +8,27 @@ export default class Todo {
   private content: Content;
   private priority: Priority;
 
-  constructor(
-    id: string,
-    title: Title,
-    content: Content,
-    status: Status = Status.NOT_STARTED,
-    priority: Priority = Priority.NORMAL,
-  ) {
-    this.id = id;
+  constructor(params: {
+    title: Title;
+    content: Content;
+    status: Status;
+    priority: Priority;
+  });
+  constructor(params: {
+    id: string;
+    title: Title;
+    content: Content;
+    status: Status;
+    priority: Priority;
+  }) {
+    const {
+      title,
+      content,
+      status = Status.NOT_STARTED,
+      priority = Priority.NORMAL,
+    } = params;
+
+    this.id = params.id || crypto.randomUUID();
     this.title = title;
     this.content = content;
     this.status = status;

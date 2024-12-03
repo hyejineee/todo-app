@@ -1,4 +1,4 @@
-import type { Todo } from '@domain/todo';
+import { type Todo } from '@domain/todo';
 import type { HttpClient } from '@infra/network';
 import { DI_TYPES } from '@shared/config';
 import { inject, injectable } from 'inversify';
@@ -20,10 +20,10 @@ export default class TodoRemoteDataSource {
 
   async createTodo(todo: Todo) {
     return (
-      await this.httpClient.instance.post(TodoRemoteDataSource.API_KEY.CREATE, {
-        title: todo.getTitle().getValue(),
-        content: todo.getStatus().getValue(),
-      })
+      await this.httpClient.instance.post(
+        TodoRemoteDataSource.API_KEY.CREATE,
+        this.entityMapToDto(todo),
+      )
     ).data;
   }
 
@@ -31,10 +31,7 @@ export default class TodoRemoteDataSource {
     return (
       await this.httpClient.instance.put(
         TodoRemoteDataSource.API_KEY.UPDATE(id),
-        {
-          title: todo.getTitle().getValue(),
-          content: todo.getStatus().getValue(),
-        },
+        this.entityMapToDto(todo),
       )
     ).data;
   }
@@ -57,5 +54,22 @@ export default class TodoRemoteDataSource {
         TodoRemoteDataSource.API_KEY.DELETE(id),
       )
     ).data;
+  }
+
+  private dtoMapToEntity(dto: {
+    title: string;
+    content: string;
+    priority: string;
+    status: string;
+    createAt: string;
+  }) {}
+
+  private entityMapToDto(todo: Todo) {
+    return {
+      title: todo.getTitle().getValue(),
+      content: todo.getContent().getValue(),
+      priority: todo.getPriority().getValue(),
+      status: todo.getStatus().getValue(),
+    };
   }
 }

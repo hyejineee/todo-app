@@ -1,3 +1,5 @@
+import { CreateTodoForm } from '../features/todo/CreateTodoForm';
+
 export const CreateTodoPage = () => {
-  return <>create todo page</>;
+  return <CreateTodoForm />;
 };

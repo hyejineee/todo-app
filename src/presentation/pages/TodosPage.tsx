@@ -9,6 +9,7 @@ export const TodosPage = () => {
         padding: '50px 200px',
         width: '100%',
         height: '100%',
+        minWidth: 1020,
         gap: 16,
         margin: '0 auto',
       }}

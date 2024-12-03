@@ -4,6 +4,7 @@ import type { AxiosInstance, CreateAxiosDefaults } from 'axios';
 import axios from 'axios';
 import { inject, injectable } from 'inversify';
 
+// TODO: shared로 옮겨야 함. 401에러 발생했을 때 예외처리 해야 함.
 @injectable()
 export class HttpClient {
   private _instance: AxiosInstance;
@@ -25,7 +26,7 @@ export class HttpClient {
     this._instance.interceptors.request.use(async (config) => {
       const token = await this._tokenDataSource.getToken();
       if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+        config.headers.Authorization = `${token}`;
       }
       return config;
     });
