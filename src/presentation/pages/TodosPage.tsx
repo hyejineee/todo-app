@@ -1,6 +1,7 @@
 import { Row } from '@/shared/ui';
 import { Card } from '@/shared/ui/components/card';
 import { Outlet } from 'react-router-dom';
+import { TodoList } from '../entities/todo/ui';
 
 export const TodosPage = () => {
   return (
@@ -15,7 +16,7 @@ export const TodosPage = () => {
       }}
     >
       <Card css={{ width: '35%', height: '100%', padding: 16 }}>
-        todo list page
+        <TodoList />
       </Card>
       <Card css={{ width: '65%', height: '100%', padding: 16 }}>
         <Outlet />

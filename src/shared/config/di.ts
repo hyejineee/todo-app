@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 
+import { GetTodosUseCase } from '@/application/todo/useCases';
 import {
   LoginUseCase,
   RegisterUserUseCase,
@@ -65,6 +66,10 @@ diContainer
 diContainer
   .bind(DI_TYPES.CreateTodoUseCase)
   .to(CreateTodoUseCase)
+  .inSingletonScope();
+diContainer
+  .bind(DI_TYPES.GetTodosUseCase)
+  .to(GetTodosUseCase)
   .inSingletonScope();
 
 export { diContainer };
