@@ -7,6 +7,7 @@ export default class Todo {
   private status: Status;
   private content: Content;
   private priority: Priority;
+  private createdAt: Date;
 
   constructor(params: {
     title: Title;
@@ -20,6 +21,15 @@ export default class Todo {
     content: Content;
     status: Status;
     priority: Priority;
+    createdAt: Date;
+  });
+  constructor(params: {
+    id?: string;
+    title: Title;
+    content: Content;
+    status: Status;
+    priority: Priority;
+    createdAt?: Date;
   }) {
     const {
       title,
@@ -33,6 +43,7 @@ export default class Todo {
     this.content = content;
     this.status = status;
     this.priority = priority;
+    this.createdAt = params.createdAt || new Date();
   }
 
   updateTitle(title: Title): Todo {
@@ -73,5 +84,9 @@ export default class Todo {
 
   getPriority(): Priority {
     return this.priority;
+  }
+
+  getCreatedAt(): Date {
+    return this.createdAt;
   }
 }
