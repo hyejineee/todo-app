@@ -1,6 +1,7 @@
 import { Row } from '@/shared/ui';
+import { Button } from '@/shared/ui/components/button';
 import { Card } from '@/shared/ui/components/card';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { TodoList } from '../entities/todo/ui';
 
 export const TodosPage = () => {
@@ -16,6 +17,9 @@ export const TodosPage = () => {
       }}
     >
       <Card css={{ width: '35%', height: '100%', padding: 16 }}>
+        <Link to="/todos/create">
+          <Button css={{ width: '100%', marginBottom: 24 }}>CREATE TODO</Button>
+        </Link>
         <TodoList />
       </Card>
       <Card css={{ width: '65%', height: '100%', padding: 16 }}>
