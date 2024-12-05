@@ -10,8 +10,9 @@ import {
 export type ValueObjectClass<Input, T> = {
   create: (value: Input) => Result<T>;
 };
-type ResolverInput = {
-  [key: string]: ValueObjectClass<any, any>;
+
+type ResolverInput<T> = {
+  [K in keyof T]: ValueObjectClass<any, T[K]>;
 };
 
 const isFailResultEntry = (
@@ -25,8 +26,8 @@ const isSuccessResultEntry = <T, K extends keyof T>(
   return isSuccessResult(entry[1]);
 };
 
-export const createResolver = <T extends ResolverInput>(
-  valueObjects: T,
+export const createResolver = <T extends Record<string, any>>(
+  valueObjects: ResolverInput<T>,
 ): Resolver<T> => {
   return (values) => {
     const results = Object.entries(values).reduce(

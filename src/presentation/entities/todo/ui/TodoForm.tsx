@@ -12,15 +12,15 @@ import {
 } from '@shared/ui/components/form';
 import { Input } from '@shared/ui/components/input';
 import { Textarea } from '@shared/ui/components/textarea';
-import { createResolver, type ValueObjectClass } from '@shared/utils';
+import { createResolver } from '@shared/utils';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 export type TodoFormVOType = {
-  status: ValueObjectClass<string, Status>;
-  title: ValueObjectClass<string, Title>;
-  content: ValueObjectClass<string, Content>;
-  priority: ValueObjectClass<string, Priority>;
+  status: Status;
+  title: Title;
+  content: Content;
+  priority: Priority;
 };
 
 const priorityOptions: {
@@ -43,8 +43,7 @@ const statusOptions: {
 
 type TodoFormProps = {
   onSubmit: (formValue: TodoFormVOType) => void;
-  // defaultValue?: Record<keyof TodoFormVOType, string>;
-  defaultValue?: TodoFormVOType;
+  defaultValue?: Record<keyof TodoFormVOType, string>;
   buttonText: string;
 };
 

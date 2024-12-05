@@ -1,5 +1,5 @@
 import { TodoForm, type TodoFormVOType } from '@/presentation/entities/todo/ui';
-import type CreateTodoUseCase from '@application/todo/useCases/CreateTodoUseCase';
+import { type CreateTodoUseCase } from '@application/todo/useCases';
 import { Todo } from '@domain/todo';
 import { DI_TYPES, diContainer } from '@shared/config';
 
