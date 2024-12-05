@@ -12,15 +12,15 @@ import {
 } from '@shared/ui/components/form';
 import { Input } from '@shared/ui/components/input';
 import { Textarea } from '@shared/ui/components/textarea';
-import { createResolver } from '@shared/utils';
+import { createResolver, type ValueObjectClass } from '@shared/utils';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 export type TodoFormVOType = {
-  priority: Priority;
-  status: Status;
-  title: Title;
-  content: Content;
+  status: ValueObjectClass<string, Status>;
+  title: ValueObjectClass<string, Title>;
+  content: ValueObjectClass<string, Content>;
+  priority: ValueObjectClass<string, Priority>;
 };
 
 const priorityOptions: {
@@ -43,12 +43,13 @@ const statusOptions: {
 
 type TodoFormProps = {
   onSubmit: (formValue: TodoFormVOType) => void;
-  defaultValue?: Record<keyof TodoFormVOType, string>;
+  // defaultValue?: Record<keyof TodoFormVOType, string>;
+  defaultValue?: TodoFormVOType;
   buttonText: string;
 };
 
 export type TodoFormInputType = Record<keyof TodoFormVOType, string>;
-const todoResolver = createResolver({
+const todoResolver = createResolver<TodoFormVOType>({
   title: Title,
   content: Content,
   priority: Priority,
@@ -58,13 +59,13 @@ const todoResolver = createResolver({
 export const TodoForm = Object.assign(
   (props: TodoFormProps) => {
     const { onSubmit, defaultValue, buttonText } = props;
-    const form = useForm<TodoFormInputType>({
+    const form = useForm<TodoFormVOType>({
       mode: 'onChange',
       resolver: todoResolver,
       ...(defaultValue && { defaultValue }),
     });
 
-    const handleSubmit = (formValue: TodoFormInputType) => {
+    const handleSubmit = (formValue: TodoFormVOType) => {
       const resolved = formValue as unknown as TodoFormVOType;
       onSubmit(resolved);
     };

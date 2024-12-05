@@ -1,9 +1,9 @@
-import { Column, Row } from '@/shared/ui';
-import { Badge } from '@/shared/ui/components/badge';
+import { Column } from '@/shared/ui';
 import { Card } from '@/shared/ui/components/card';
 import { type Todo } from '@domain/todo';
 import { Link } from 'react-router-dom';
 import { useTodos } from '../api';
+import { TodoStatus } from './TodoStatus';
 
 export const TodoList = () => {
   const { data: todos } = useTodos();
@@ -31,10 +31,7 @@ const TodoItem = (props: TodoItemProps) => {
           {todo.getCreatedAt().toDateString()}
         </span>
 
-        <Row css={{ gap: 4 }}>
-          <Badge>{todo.getPriority().getValue()}</Badge>
-          <Badge variant={'secondary'}>{todo.getStatus().getValue()}</Badge>
-        </Row>
+        <TodoStatus priority={todo.getPriority()} status={todo.getStatus()} />
 
         <span css={{ fontSize: 20 }}>{todo.getTitle().getValue()}</span>
         <span css={{ fontSize: 12 }}>{todo.getContent().getValue()}</span>
