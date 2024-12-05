@@ -7,11 +7,8 @@ import {
   type SuccessResult,
 } from '../types';
 
-type ValueObjectClass<Input, T> = {
+export type ValueObjectClass<Input, T> = {
   create: (value: Input) => Result<T>;
-};
-type FormValue<T> = {
-  [K in keyof T]: string;
 };
 type ResolverInput = {
   [key: string]: ValueObjectClass<any, any>;
@@ -22,15 +19,15 @@ const isFailResultEntry = (
 ): entry is [string, FailResult] => {
   return isFailResult(entry[1]);
 };
-const isSuccessResultEntry = (
-  entry: [string, Result<any>],
-): entry is [string, SuccessResult<any>] => {
+const isSuccessResultEntry = <T, K extends keyof T>(
+  entry: [string, Result<T[K]>],
+): entry is [string, SuccessResult<T[K]>] => {
   return isSuccessResult(entry[1]);
 };
 
 export const createResolver = <T extends ResolverInput>(
   valueObjects: T,
-): Resolver<FormValue<T>> => {
+): Resolver<T> => {
   return (values) => {
     const results = Object.entries(values).reduce(
       (acc, [key, value]) => {
@@ -70,7 +67,7 @@ export const createResolver = <T extends ResolverInput>(
           ...acc,
           [key]: result.value,
         }),
-        {} as FormValue<T>,
+        {} as T,
       );
 
     // 모든 검증이 성공한 경우

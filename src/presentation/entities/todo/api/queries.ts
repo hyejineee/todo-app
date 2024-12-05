@@ -1,20 +1,25 @@
-import type { GetTodosUseCase } from '@/application/todo/useCases';
+import type {
+  GetTodosUseCase,
+  GetTodoUseCase,
+} from '@/application/todo/useCases';
 import { DI_TYPES, diContainer } from '@/shared/config';
-import { createBaseQueryOptions } from '@/shared/utils';
+import { createQueryKeys } from '@lukemorales/query-key-factory';
 
-export const todoKeys = {
-  all: ['todos'] as const,
-  list: () => [...todoKeys.all] as const,
-  detail: (id: string) => [...todoKeys.all, 'detail', id] as const,
-} as const;
-
-export const createGetTodosQueryOptions = () => {
-  return createBaseQueryOptions({
-    queryKey: todoKeys.list(),
+export const todoKeys = createQueryKeys('todos', {
+  list: {
+    queryKey: null,
     queryFn: async () => {
       return await diContainer
         .get<GetTodosUseCase>(DI_TYPES.GetTodosUseCase)
         .execute();
     },
-  });
-};
+  },
+  detail: (params: { id: string }) => ({
+    queryKey: [params.id],
+    queryFn: async () => {
+      return await diContainer
+        .get<GetTodoUseCase>(DI_TYPES.GetTodoUseCase)
+        .execute(params.id);
+    },
+  }),
+});
