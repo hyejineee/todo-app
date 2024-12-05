@@ -48,12 +48,17 @@ export default class TodoRemoteDataSource {
   }
 
   async getTodo(id: string): Promise<Todo> {
-    const todo = (
-      await this.httpClient.instance.get<TodosResponseDto<Todo>>(
-        TodoRemoteDataSource.API_KEY.GET(id),
-      )
-    ).data.data;
-    return todo;
+    try {
+      const todo = (
+        await this.httpClient.instance.get<TodosResponseDto<TodoDto>>(
+          TodoRemoteDataSource.API_KEY.GET(id),
+        )
+      ).data;
+
+      return this.dtoMapToEntity(todo.data);
+    } catch (e) {
+      throw e;
+    }
   }
 
   async deleteTodo(id: string) {

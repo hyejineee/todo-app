@@ -16,6 +16,7 @@ const DI_TYPES = {
   RegisterUserUseCase: Symbol.for('RegisterUserUseCase'),
   CreateTodoUseCase: Symbol.for('CreateTodoUseCase'),
   GetTodosUseCase: Symbol.for('GetTodosUseCase'),
+  GetTodoUseCase: Symbol.for('GetTodoUseCase'),
 };
 
 export { DI_TYPES };

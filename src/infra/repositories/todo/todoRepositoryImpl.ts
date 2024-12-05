@@ -26,7 +26,8 @@ export default class TodoRepositoryImpl implements ITodoRepository {
   }
 
   async findById(id: string): Promise<Todo | null> {
-    return await this.todoDataSource.getTodo(id);
+    const data = await this.todoDataSource.getTodo(id);
+    return data;
   }
 
   async delete(id: string): Promise<void> {
