@@ -1,7 +1,7 @@
-import type { Result } from '@/shared/types';
+import type { Result, VO } from '@/shared/types';
 import { z } from 'zod';
 
-export default class Content {
+export default class Content implements VO<string, Content> {
   private constructor(private readonly value: string) {}
   public static schema = z
     .string()

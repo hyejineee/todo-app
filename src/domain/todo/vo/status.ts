@@ -1,7 +1,7 @@
-import type { Result } from '@shared/types';
+import type { Result, VO } from '@shared/types';
 import { z } from 'zod';
 
-export default class Status {
+export default class Status implements VO<string, Status> {
   private constructor(private readonly value: string) {}
 
   static schema = z.enum(['done', 'notStarted', 'inProgress']);

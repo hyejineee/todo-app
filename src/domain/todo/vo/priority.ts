@@ -1,7 +1,7 @@
-import type { Result } from '@/shared/types';
+import type { Result, VO } from '@/shared/types';
 import { z } from 'zod';
 
-export default class Priority {
+export default class Priority implements VO<string, Priority> {
   private constructor(private readonly value: string) {}
 
   static schema = z.enum(['urgent', 'normal', 'row']);

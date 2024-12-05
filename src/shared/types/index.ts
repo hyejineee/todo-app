@@ -28,3 +28,9 @@ export function isSuccessResult<T>(
 ): result is SuccessResult<T> {
   return result.isSuccess === true;
 }
+
+export interface VO<Primitive, ValueType> {
+  getValue(): Primitive;
+  toString(): string;
+  equals(other: ValueType): boolean;
+}
