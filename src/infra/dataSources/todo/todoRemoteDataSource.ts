@@ -19,13 +19,15 @@ export default class TodoRemoteDataSource {
     this.httpClient = httpClient;
   }
 
-  async createTodo(todo: Todo) {
-    return (
-      await this.httpClient.instance.post(
+  async createTodo(todo: Todo): Promise<Todo> {
+    const created = (
+      await this.httpClient.instance.post<TodosResponseDto<TodoDto>>(
         TodoRemoteDataSource.API_KEY.CREATE,
         this.entityMapToDto(todo),
       )
-    ).data;
+    ).data.data;
+
+    return this.dtoMapToEntity(created);
   }
 
   async updateTodo(id: string, todo: Todo) {

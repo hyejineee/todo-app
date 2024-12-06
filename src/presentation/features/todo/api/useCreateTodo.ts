@@ -8,7 +8,7 @@ export const useCreateTodo = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (todo: Todo) => {
-      await diContainer
+      return await diContainer
         .get<CreateTodoUseCase>(DI_TYPES.CreateTodoUseCase)
         .execute(todo);
     },

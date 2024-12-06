@@ -13,8 +13,8 @@ export default class TodoRepositoryImpl implements ITodoRepository {
     this.todoDataSource = todoDataSource;
   }
 
-  async create(todo: Todo): Promise<void> {
-    await this.todoDataSource.createTodo(todo);
+  async create(todo: Todo): Promise<Todo> {
+    return await this.todoDataSource.createTodo(todo);
   }
 
   async update(id: string, todo: Todo): Promise<void> {

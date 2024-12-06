@@ -12,7 +12,7 @@ export default class CreateTodoUseCase {
     this.todoRepository = todoRepository;
   }
 
-  async execute(todo: Todo) {
-    await this.todoRepository.create(todo);
+  async execute(todo: Todo): Promise<Todo> {
+    return await this.todoRepository.create(todo);
   }
 }
