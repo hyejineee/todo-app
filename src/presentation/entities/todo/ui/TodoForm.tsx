@@ -57,10 +57,11 @@ const todoResolver = createResolver<TodoFormVOType>({
 export const TodoForm = Object.assign(
   (props: TodoFormProps) => {
     const { onSubmit, defaultValue, buttonText } = props;
+
     const form = useForm<TodoFormVOType>({
       mode: 'onChange',
       resolver: todoResolver,
-      ...(defaultValue && { defaultValue }),
+      ...(defaultValue && { defaultValues: defaultValue }),
     });
 
     const handleSubmit = (formValue: TodoFormVOType) => {
