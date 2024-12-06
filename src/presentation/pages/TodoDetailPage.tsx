@@ -2,7 +2,7 @@ import { Column, Row } from '@/shared/ui';
 import { Button } from '@/shared/ui/components/button';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { TodoDetail } from '../entities/todo/ui';
-import { DeleteTodoButton } from '../features/todo';
+import { DeleteTodo } from '../features/todo';
 
 export const TodoDetailPage = () => {
   const location = useLocation();
@@ -21,7 +21,7 @@ export const TodoDetailPage = () => {
         >
           <TodoDetail.CreatedAt />
           <Row css={{ gap: 8 }}>
-            <DeleteTodoButton />
+            <DeleteTodo id={params.id} />
             <Link to={`${location.pathname}/edit`}>
               <Button variant={'outline'}>EDIT</Button>
             </Link>
