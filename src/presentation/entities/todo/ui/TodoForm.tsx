@@ -47,7 +47,6 @@ type TodoFormProps = {
   buttonText: string;
 };
 
-export type TodoFormInputType = Record<keyof TodoFormVOType, string>;
 const todoResolver = createResolver<TodoFormVOType>({
   title: Title,
   content: Content,
