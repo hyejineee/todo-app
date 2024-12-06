@@ -17,6 +17,7 @@ const DI_TYPES = {
   CreateTodoUseCase: Symbol.for('CreateTodoUseCase'),
   GetTodosUseCase: Symbol.for('GetTodosUseCase'),
   GetTodoUseCase: Symbol.for('GetTodoUseCase'),
+  DeleteTodoUseCase: Symbol.for('DeleteTodoUseCase'),
 };
 
 export { DI_TYPES };
