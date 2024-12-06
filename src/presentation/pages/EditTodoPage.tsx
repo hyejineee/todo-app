@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useTodo } from '../entities/todo/api';
-import { EditTodoForm } from '../features/todo';
+import { EditTodoForm } from '../features/todo/ui';
 
 export const EditTodoPage = () => {
   const param = useParams();
