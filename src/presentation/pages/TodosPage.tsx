@@ -1,4 +1,4 @@
-import { Row } from '@/shared/ui';
+import { Column, Row } from '@/shared/ui';
 import { Button } from '@/shared/ui/components/button';
 import { Card } from '@/shared/ui/components/card';
 import { Link, Outlet } from 'react-router-dom';
@@ -20,7 +20,9 @@ export const TodosPage = () => {
         <Link to="/todos/create">
           <Button css={{ width: '100%', marginBottom: 24 }}>CREATE TODO</Button>
         </Link>
-        <TodoList />
+        <Column css={{ overflow: 'auto', height: 'calc(100% - 64px)' }}>
+          <TodoList />
+        </Column>
       </Card>
       <Card css={{ width: '65%', height: '100%', padding: 16 }}>
         <Outlet />
