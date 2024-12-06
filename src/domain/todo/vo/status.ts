@@ -1,14 +1,24 @@
 import type { Result, VO } from '@shared/types';
 import { z } from 'zod';
 
+export type StatusType = 'done' | 'notStarted' | 'inProgress';
 export default class Status implements VO<string, Status> {
   private constructor(private readonly value: string) {}
 
-  static schema = z.enum(['done', 'notStarted', 'inProgress']);
+  static keys: Record<StatusType, StatusType> = {
+    done: 'done',
+    notStarted: 'notStarted',
+    inProgress: 'inProgress',
+  };
+  static schema = z.enum([
+    this.keys.done,
+    this.keys.inProgress,
+    this.keys.notStarted,
+  ]);
 
-  static readonly NOT_STARTED = new Status('notStarted');
-  static readonly IN_PROGRESS = new Status('inProgress');
-  static readonly DONE = new Status('done');
+  static readonly NOT_STARTED = new Status(this.keys.notStarted);
+  static readonly IN_PROGRESS = new Status(this.keys.inProgress);
+  static readonly DONE = new Status(this.keys.done);
 
   static create(value: string): Result<Status> {
     const result = this.schema.safeParse(value);
@@ -26,15 +36,15 @@ export default class Status implements VO<string, Status> {
 
     let status: Status;
     switch (result.data) {
-      case 'notStarted': {
+      case this.keys.notStarted: {
         status = Status.NOT_STARTED;
         break;
       }
-      case 'inProgress': {
+      case this.keys.inProgress: {
         status = Status.IN_PROGRESS;
         break;
       }
-      case 'done': {
+      case this.keys.done: {
         status = Status.DONE;
         break;
       }

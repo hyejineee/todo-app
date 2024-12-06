@@ -1,14 +1,21 @@
 import type { Result, VO } from '@/shared/types';
 import { z } from 'zod';
 
+export type PriorityType = 'urgent' | 'normal' | 'row';
 export default class Priority implements VO<string, Priority> {
   private constructor(private readonly value: string) {}
 
-  static schema = z.enum(['urgent', 'normal', 'row']);
+  static keys: Record<PriorityType, PriorityType> = {
+    urgent: 'urgent',
+    normal: 'normal',
+    row: 'row',
+  };
 
-  static readonly URGENT = new Priority('urgent');
-  static readonly NORMAL = new Priority('normal');
-  static readonly ROW = new Priority('row');
+  static schema = z.enum([this.keys.urgent, this.keys.normal, this.keys.row]);
+
+  static readonly URGENT = new Priority(this.keys.urgent);
+  static readonly NORMAL = new Priority(this.keys.normal);
+  static readonly ROW = new Priority(this.keys.row);
 
   static create(value: string): Result<Priority> {
     const result = this.schema.safeParse(value);
@@ -26,15 +33,15 @@ export default class Priority implements VO<string, Priority> {
 
     let priority: Priority;
     switch (result.data) {
-      case 'urgent': {
+      case this.keys.urgent: {
         priority = Priority.URGENT;
         break;
       }
-      case 'normal': {
+      case this.keys.normal: {
         priority = Priority.NORMAL;
         break;
       }
-      case 'row': {
+      case this.keys.row: {
         priority = Priority.ROW;
         break;
       }
