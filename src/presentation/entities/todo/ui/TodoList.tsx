@@ -2,12 +2,13 @@ import { Column } from '@/shared/ui';
 import { Card } from '@/shared/ui/components/card';
 import { type Todo } from '@domain/todo';
 import { Link } from 'react-router-dom';
-import { useTodos } from '../api';
 import { TodoStatus } from './TodoStatus';
 
-export const TodoList = () => {
-  const { data: todos } = useTodos();
-
+type TodoListProps = {
+  todos: Todo[];
+};
+export const TodoList = (props: TodoListProps) => {
+  const { todos } = props;
   return (
     <Column css={{ gap: 8 }}>
       {todos?.map((todo) => <TodoItem todo={todo} />)}
