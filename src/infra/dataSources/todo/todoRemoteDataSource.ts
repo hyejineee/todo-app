@@ -1,7 +1,9 @@
+import type { TodoFilter } from '@/application/todo/types';
 import type { TodoDto, TodosResponseDto } from '@/infra/dto/todo';
 import { Content, Priority, Status, Title, Todo } from '@domain/todo';
 import type { HttpClient } from '@infra/network';
 import { DI_TYPES } from '@shared/config';
+import type { AxiosResponse } from 'axios';
 import { inject, injectable } from 'inversify';
 
 @injectable()
@@ -39,11 +41,13 @@ export default class TodoRemoteDataSource {
     ).data;
   }
 
-  async getTodoList(): Promise<Todo[]> {
+  async getTodoList(filter?: Partial<TodoFilter>): Promise<Todo[]> {
     const todos = (
-      await this.httpClient.instance.get<TodosResponseDto<TodoDto[]>>(
-        TodoRemoteDataSource.API_KEY.GET_LIST,
-      )
+      await this.httpClient.instance.get<
+        TodosResponseDto<TodoDto[]>,
+        AxiosResponse<TodosResponseDto<TodoDto[]>>,
+        Partial<TodoFilter>
+      >(TodoRemoteDataSource.API_KEY.GET_LIST, { params: filter })
     ).data.data;
 
     return todos.map((todo) => this.dtoMapToEntity(todo));

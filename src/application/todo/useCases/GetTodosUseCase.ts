@@ -1,6 +1,7 @@
 import { DI_TYPES } from '@/shared/config';
 import { inject, injectable } from 'inversify';
 import type { ITodoRepository } from '../repositories';
+import type { TodoFilter } from '../types';
 
 @injectable()
 export default class GetTodosUseCase {
@@ -11,7 +12,7 @@ export default class GetTodosUseCase {
     this.todoRepository = todoRepository;
   }
 
-  async execute() {
-    return await this.todoRepository.findAll();
+  async execute(filter?: Partial<TodoFilter>) {
+    return await this.todoRepository.findAll(filter);
   }
 }

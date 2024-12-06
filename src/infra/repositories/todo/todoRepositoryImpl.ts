@@ -1,3 +1,4 @@
+import type { TodoFilter } from '@/application/todo/types';
 import type { ITodoRepository } from '@application/todo/repositories/todoRepository';
 import type { Todo } from '@domain/todo';
 import type { TodoRemoteDataSource } from '@infra/dataSources/todo';
@@ -21,8 +22,8 @@ export default class TodoRepositoryImpl implements ITodoRepository {
     await this.todoDataSource.updateTodo(id, todo);
   }
 
-  async findAll(): Promise<Todo[]> {
-    return await this.todoDataSource.getTodoList();
+  async findAll(filter?: Partial<TodoFilter>): Promise<Todo[]> {
+    return await this.todoDataSource.getTodoList(filter);
   }
 
   async findById(id: string): Promise<Todo | null> {
