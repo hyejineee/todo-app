@@ -2,7 +2,7 @@ import { Column, Row } from '@/shared/ui';
 import { Button } from '@/shared/ui/components/button';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { TodoDetail } from '../entities/todo/ui';
-import { DeleteTodo } from '../features/todo';
+import { DeleteTodo } from '../features/todo/ui';
 
 export const TodoDetailPage = () => {
   const location = useLocation();

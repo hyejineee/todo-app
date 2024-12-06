@@ -1,5 +1,3 @@
-import type { DeleteTodoUseCase } from '@/application/todo/useCases';
-import { DI_TYPES, diContainer } from '@/shared/config';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,16 +10,19 @@ import {
   AlertDialogTrigger,
 } from '@/shared/ui/components/alert-dialog';
 import { Button } from '@/shared/ui/components/button';
+import { useNavigate } from 'react-router-dom';
+import { useDeleteTodo } from '../api';
 
 type DeleteTodoButtonProps = {
   id: string;
 };
 export const DeleteTodo = (props: DeleteTodoButtonProps) => {
   const { id } = props;
+  const navigate = useNavigate();
+  const { mutateAsync: deleteTodoRequest } = useDeleteTodo();
   const deleteTodo = async () => {
-    await diContainer
-      .get<DeleteTodoUseCase>(DI_TYPES.DeleteTodoUseCase)
-      .execute(id);
+    await deleteTodoRequest(id);
+    navigate('/todos', { replace: true });
   };
   return (
     <AlertDialog>

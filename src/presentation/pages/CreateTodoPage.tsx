@@ -1,4 +1,4 @@
-import { CreateTodoForm } from '../features/todo/CreateTodoForm';
+import { CreateTodoForm } from '../features/todo/ui/CreateTodoForm';
 
 export const CreateTodoPage = () => {
   return <CreateTodoForm />;
