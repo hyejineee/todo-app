@@ -1,18 +1,20 @@
 import type { PriorityType } from '@/domain/todo/vo/priority';
 import { Column, Row } from '@/shared/ui';
 import { Card } from '@/shared/ui/components/card';
+import { Dialog, DialogContent } from '@/shared/ui/components/dialog';
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { PriorityFilter } from '../features/todo/ui';
 import { TodoListBoard } from '../widgets/todo';
 
 export const TodosPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+
   const [priorityFilter, setPriorityFilter] = useState<PriorityType | 'all'>(
     'all',
   );
 
-  console.log('dd', location.pathname);
   return (
     <Row
       css={{
@@ -51,6 +53,19 @@ export const TodosPage = () => {
           </Row>
         </Column>
       </Card>
+
+      {location.pathname !== '/todos' && (
+        <Dialog
+          open={true}
+          onOpenChange={(value) => {
+            if (!value) navigate('/todos', { replace: true });
+          }}
+        >
+          <DialogContent>
+            <Outlet />
+          </DialogContent>
+        </Dialog>
+      )}
     </Row>
   );
 };
