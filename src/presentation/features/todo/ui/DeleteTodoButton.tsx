@@ -10,11 +10,15 @@ import {
   AlertDialogTrigger,
 } from '@/shared/ui/components/alert-dialog';
 import { Button } from '@/shared/ui/components/button';
+import type { Interpolation, Theme } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 import { useDeleteTodo } from '../api';
 
 type DeleteTodoButtonProps = {
   id: string;
+  styled?: {
+    trigger?: Interpolation<Theme>;
+  };
 };
 export const DeleteTodo = (props: DeleteTodoButtonProps) => {
   const { id } = props;
@@ -26,8 +30,10 @@ export const DeleteTodo = (props: DeleteTodoButtonProps) => {
   };
   return (
     <AlertDialog>
-      <AlertDialogTrigger>
-        <Button variant="destructive">DELETE</Button>
+      <AlertDialogTrigger css={props?.styled?.trigger}>
+        <Button variant="destructive" css={props?.styled?.trigger}>
+          DELETE
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

@@ -1,7 +1,6 @@
 import {
   AuthPage,
   CreateTodoPage,
-  EditTodoPage,
   TodoDetailPage,
   TodosPage,
 } from '@presentation/pages';
@@ -19,10 +18,6 @@ export const router = createBrowserRouter([
       {
         path: '/todos/:id',
         element: <TodoDetailPage />,
-      },
-      {
-        path: '/todos/:id/edit',
-        element: <EditTodoPage />,
       },
       {
         path: '/todos/create',
