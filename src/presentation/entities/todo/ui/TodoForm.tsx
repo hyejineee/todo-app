@@ -14,7 +14,7 @@ import { Input } from '@shared/ui/components/input';
 import { Textarea } from '@shared/ui/components/textarea';
 import { createResolver } from '@shared/utils';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { priorityOptions, statusOptions } from '../constant';
 
 export type TodoFormVOType = {
   status: Status;
@@ -22,24 +22,6 @@ export type TodoFormVOType = {
   content: Content;
   priority: Priority;
 };
-
-const priorityOptions: {
-  value: z.infer<typeof Priority.schema>;
-  label: string;
-}[] = [
-  { value: 'urgent', label: 'urgent' },
-  { value: 'normal', label: 'normal' },
-  { value: 'row', label: 'row' },
-];
-
-const statusOptions: {
-  value: z.infer<typeof Status.schema>;
-  label: string;
-}[] = [
-  { value: 'notStarted', label: 'notStarted' },
-  { value: 'inProgress', label: 'inProgress' },
-  { value: 'done', label: 'done' },
-];
 
 type TodoFormProps = {
   onSubmit: (formValue: TodoFormVOType) => void;
