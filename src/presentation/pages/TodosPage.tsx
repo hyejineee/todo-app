@@ -29,14 +29,14 @@ export const TodosPage = () => {
       <Card
         css={{ minWidth: '35%', height: '100%', width: '100%', padding: 16 }}
       >
-        <Column css={{ gap: 24 }}>
+        <Column css={{ gap: 24, height: '100%' }}>
           <PriorityFilter
             value={priorityFilter}
             onFilterChange={(priority) => setPriorityFilter(priority)}
           />
 
           <UpdateStatusBoard>
-            <Row css={{ gap: 24 }}>
+            <Row css={{ gap: 24, height: '100%' }}>
               <TodoListBoard
                 status="notStarted"
                 title="✋ Not Started"

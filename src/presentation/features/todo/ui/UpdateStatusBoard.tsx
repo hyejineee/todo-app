@@ -1,19 +1,27 @@
-import type { Todo } from '@/domain/todo';
+import { Status, type Todo } from '@/domain/todo';
+import type { StatusType } from '@/domain/todo/vo/status';
 import { createDnDBoardComponents } from '@/shared/ui/components/dnd';
 import type { ReactNode } from 'react';
+import { useUpdateTodo } from '../api';
 
-export const { DnDPanel, useDnDContext } = createDnDBoardComponents<Todo>();
+export const { DnDPanel, useDnDContext } = createDnDBoardComponents<
+  Todo,
+  StatusType
+>();
 
 type UpdateStatusBoardProps = {
   children: ReactNode;
 };
 export const UpdateStatusBoard = (props: UpdateStatusBoardProps) => {
   const { children } = props;
+  const { mutateAsync: updateStatusRequest } = useUpdateTodo();
 
-  const updateStatus = (origin: Todo, target: Todo) => {
-    console.log(
-      `${origin.getStatus()}에서 ${target.getStatus()}으로 상태 변경하기`,
-    );
+  const updateStatus = async (origin: Todo, target: StatusType) => {
+    const targetStatus = Status.create(target);
+    if (!targetStatus.isSuccess) return;
+    const updated = origin.updateStatus(targetStatus.value);
+
+    await updateStatusRequest(updated);
   };
 
   return <DnDPanel onDrop={updateStatus}>{children}</DnDPanel>;

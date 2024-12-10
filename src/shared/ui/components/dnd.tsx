@@ -1,22 +1,22 @@
 import { createContext, useContext, useState, type ReactNode } from 'react';
 
-const createDnDContext = <T,>() => {
+const createDnDContext = <T, V = T>() => {
   const Context = createContext<{
     grabbed: T | null;
     onDrag: (grabbed: T) => void;
-    onDrop: (target: T) => void;
+    onDrop: (target: V) => void;
   } | null>(null);
   Context.displayName = 'DnDContext';
   return Context;
 };
 
-export const createDnDBoardComponents = <T,>() => {
-  const DndContext = createDnDContext<T>();
+export const createDnDBoardComponents = <T, V = T>() => {
+  const DndContext = createDnDContext<T, V>();
 
   const DnDPanel = (props: {
     children: ReactNode;
     onDrag?: (grabbed: T) => void;
-    onDrop?: (origin: T, target: T) => void;
+    onDrop?: (origin: T, target: V) => void;
   }) => {
     const { children, onDrop, onDrag } = props;
     const [grabbed, setGrabItem] = useState<T | null>(null);
@@ -26,7 +26,7 @@ export const createDnDBoardComponents = <T,>() => {
       onDrag?.(grabbed);
     };
 
-    const handleDrop = (target: T) => {
+    const handleDrop = (target: V) => {
       setGrabItem(null);
 
       if (!grabbed) return;
