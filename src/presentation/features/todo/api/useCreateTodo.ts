@@ -13,7 +13,7 @@ export const useCreateTodo = () => {
         .execute(todo);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(todoKeys.list);
+      queryClient.invalidateQueries(todoKeys.list());
     },
   });
 };

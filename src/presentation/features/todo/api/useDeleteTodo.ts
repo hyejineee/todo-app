@@ -12,7 +12,7 @@ export const useDeleteTodo = () => {
         .execute(id);
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries(todoKeys.list);
+      queryClient.invalidateQueries(todoKeys.list());
       queryClient.invalidateQueries(todoKeys.detail({ id: variables }));
     },
   });
