@@ -1,3 +1,3 @@
 export * from './useCreateTodo';
 export * from './useDeleteTodo';
-export * from './useEditTodo';
+export * from './useUpdateTodo';

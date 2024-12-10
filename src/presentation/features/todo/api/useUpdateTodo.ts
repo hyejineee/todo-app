@@ -4,7 +4,7 @@ import { todoKeys } from '@/presentation/entities/todo/api';
 import { DI_TYPES, diContainer } from '@/shared/config';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-export const useEditTodo = () => {
+export const useUpdateTodo = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (todo: Todo) => {
@@ -14,7 +14,7 @@ export const useEditTodo = () => {
       });
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries(todoKeys.list);
+      queryClient.invalidateQueries(todoKeys.list());
       queryClient.invalidateQueries(todoKeys.detail({ id: variables.getId() }));
     },
   });

@@ -4,7 +4,7 @@ import { inject, injectable } from 'inversify';
 import type { ITodoRepository } from '../repositories';
 
 @injectable()
-export default class EditTodoUseCase {
+export default class UpdateTodoUseCase {
   constructor(
     @inject(DI_TYPES.ITodoRepository) private todoRepository: ITodoRepository,
   ) {}

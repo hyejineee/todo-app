@@ -1,7 +1,7 @@
 import { Todo } from '@/domain/todo';
 import { TodoForm, type TodoFormVOType } from '@/presentation/entities/todo/ui';
 import { useNavigate } from 'react-router-dom';
-import { useEditTodo } from '../api';
+import { useUpdateTodo } from '../api';
 
 type EditTodoFormProps = {
   todo: Todo;
@@ -9,7 +9,7 @@ type EditTodoFormProps = {
 export const EditTodoForm = (props: EditTodoFormProps) => {
   const { todo } = props;
   const navigate = useNavigate();
-  const { mutateAsync: deleteTodoRequest } = useEditTodo();
+  const { mutateAsync: deleteTodoRequest } = useUpdateTodo();
 
   const editTodo = async (formValue: TodoFormVOType) => {
     try {
