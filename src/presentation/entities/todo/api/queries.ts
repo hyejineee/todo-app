@@ -7,8 +7,9 @@ import { DI_TYPES, diContainer } from '@/shared/config';
 import { createQueryKeys } from '@lukemorales/query-key-factory';
 
 export const todoKeys = createQueryKeys('todos', {
-  list: (params: { filter?: Partial<TodoFilter> }) => ({
-    queryKey: [{ filter: params?.filter }],
+  all: null,
+  list: (params?: { filter?: Partial<TodoFilter> }) => ({
+    queryKey: [{ ...params }],
     queryFn: async () => {
       return await diContainer
         .get<GetTodosUseCase>(DI_TYPES.GetTodosUseCase)
