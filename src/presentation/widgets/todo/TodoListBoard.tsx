@@ -23,7 +23,7 @@ export const TodoListBoard = (props: TodoListBoardProps) => {
     <Column css={{ gap: 8, height: '100%', flex: 1 }}>
       <h1 css={{ fontWeight: 'bold', fontSize: 32 }}>{title}</h1>
 
-      <Link to="/todos/create">
+      <Link to={`/todos/create?status=${status}`}>
         <Button css={{ width: '100%', marginBottom: 24 }}>CREATE TODO</Button>
       </Link>
 

@@ -4,7 +4,7 @@ import { Card } from '@/shared/ui/components/card';
 import { Dialog, DialogContent } from '@/shared/ui/components/dialog';
 import { useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { PriorityFilter } from '../features/todo/ui';
+import { PriorityFilter, UpdateStatusBoard } from '../features/todo/ui';
 import { TodoListBoard } from '../widgets/todo';
 
 export const TodosPage = () => {
@@ -34,23 +34,26 @@ export const TodosPage = () => {
             value={priorityFilter}
             onFilterChange={(priority) => setPriorityFilter(priority)}
           />
-          <Row css={{ gap: 24 }}>
-            <TodoListBoard
-              status="notStarted"
-              title="✋ Not Started"
-              priorityFilter={priorityFilter}
-            />
-            <TodoListBoard
-              status="inProgress"
-              title="🏃🏻‍♀️ In Progress"
-              priorityFilter={priorityFilter}
-            />
-            <TodoListBoard
-              status="done"
-              title="✅ Done"
-              priorityFilter={priorityFilter}
-            />
-          </Row>
+
+          <UpdateStatusBoard>
+            <Row css={{ gap: 24 }}>
+              <TodoListBoard
+                status="notStarted"
+                title="✋ Not Started"
+                priorityFilter={priorityFilter}
+              />
+              <TodoListBoard
+                status="inProgress"
+                title="🏃🏻‍♀️ In Progress"
+                priorityFilter={priorityFilter}
+              />
+              <TodoListBoard
+                status="done"
+                title="✅ Done"
+                priorityFilter={priorityFilter}
+              />
+            </Row>
+          </UpdateStatusBoard>
         </Column>
       </Card>
 

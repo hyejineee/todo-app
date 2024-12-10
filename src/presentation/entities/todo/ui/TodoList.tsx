@@ -1,3 +1,4 @@
+import { useDnDContext } from '@/presentation/features/todo/ui';
 import { Column } from '@/shared/ui';
 import { Card } from '@/shared/ui/components/card';
 import { type Todo } from '@domain/todo';
@@ -22,11 +23,31 @@ type TodoItemProps = {
 
 const TodoItem = (props: TodoItemProps) => {
   const { todo } = props;
+  const { onDrag, onDrop } = useDnDContext();
 
   return (
-    <Link to={`/todos/${todo.getId()}`}>
+    <Link
+      to={`/todos/${todo.getId()}`}
+      onDragStart={(e) => {
+        onDrag(todo);
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/html', e.currentTarget.id);
+      }}
+      onDragOver={(e) => {
+        e.preventDefault();
+      }}
+      onDrop={() => {
+        onDrop(todo);
+      }}
+      draggable={true}
+    >
       <Card
-        css={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 8 }}
+        css={{
+          padding: 16,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 8,
+        }}
       >
         <span css={{ color: '#999', fontSize: 12 }}>
           {todo.getCreatedAt().toDateString()}
