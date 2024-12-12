@@ -1,4 +1,5 @@
 import { TodoForm, type TodoFormVOType } from '@/presentation/entities/todo/ui';
+import { Column } from '@/shared/ui';
 import { Todo } from '@domain/todo';
 import { useNavigate } from 'react-router-dom';
 import { useCreateTodo } from '../api';
@@ -19,5 +20,15 @@ export const CreateTodoForm = () => {
     }
   };
 
-  return <TodoForm></TodoForm>;
+  return (
+    <TodoForm>
+      <Column css={{ gap: 24 }}>
+        <TodoForm.TitleField />
+        <TodoForm.PriorityField />
+        <TodoForm.StatusField />
+        <TodoForm.ContentField />
+        <TodoForm.Submit onSubmit={createTodo}>CREATE</TodoForm.Submit>
+      </Column>
+    </TodoForm>
+  );
 };

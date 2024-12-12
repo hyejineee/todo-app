@@ -1,5 +1,6 @@
 import { Todo } from '@/domain/todo';
 import { TodoForm, type TodoFormVOType } from '@/presentation/entities/todo/ui';
+import { Column } from '@/shared/ui';
 import { useNavigate } from 'react-router-dom';
 import { useUpdateTodo } from '../api';
 
@@ -28,14 +29,21 @@ export const EditTodoForm = (props: EditTodoFormProps) => {
   };
   return (
     <TodoForm
-      onSubmit={editTodo}
-      buttonText="EDIT"
       defaultValue={{
         title: todo.getTitle().getValue(),
         status: todo.getStatus().getValue(),
         priority: todo.getPriority().getValue(),
         content: todo.getContent().getValue(),
       }}
-    />
+    >
+      <Column css={{ gap: 24 }}>
+        <TodoForm.TitleField />
+        <TodoForm.PriorityField />
+        <TodoForm.StatusField />
+        <TodoForm.ContentField />
+
+        <TodoForm.Submit onSubmit={editTodo}>EDIT</TodoForm.Submit>
+      </Column>
+    </TodoForm>
   );
 };

@@ -133,7 +133,7 @@ const Submit = (
     children: ReactNode;
     buttonStyle?: Interpolation<Theme>;
     onSubmit: (formValue: TodoFormVOType) => void;
-  } & ButtonProps,
+  } & Omit<ButtonProps, 'onSubmit'>,
 ) => {
   const { onSubmit, children, buttonStyle } = props;
   const form = useFormContext<TodoFormVOType>();
