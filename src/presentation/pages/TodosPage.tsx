@@ -36,7 +36,7 @@ export const TodosPage = () => {
           />
 
           <UpdateStatusBoard>
-            <Row css={{ gap: 24, height: '100%' }}>
+            <Row css={{ gap: 24, height: '100%', overflow: 'hidden' }}>
               <TodoListBoard
                 status="notStarted"
                 title="✋ Not Started"
