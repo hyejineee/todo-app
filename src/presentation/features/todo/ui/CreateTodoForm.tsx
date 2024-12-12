@@ -19,5 +19,5 @@ export const CreateTodoForm = () => {
     }
   };
 
-  return <TodoForm onSubmit={createTodo} buttonText="Create" />;
+  return <TodoForm></TodoForm>;
 };

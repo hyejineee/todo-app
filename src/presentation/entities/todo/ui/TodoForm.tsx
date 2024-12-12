@@ -1,6 +1,6 @@
 import { Content, Priority, Status, Title } from '@domain/todo';
-import { Column } from '@shared/ui';
-import { Button } from '@shared/ui/components/button';
+import type { Interpolation, Theme } from '@emotion/react';
+import { Button, type ButtonProps } from '@shared/ui/components/button';
 import {
   Form,
   FormControl,
@@ -13,7 +13,8 @@ import {
 import { Input } from '@shared/ui/components/input';
 import { Textarea } from '@shared/ui/components/textarea';
 import { createResolver } from '@shared/utils';
-import { useForm } from 'react-hook-form';
+import type { ReactNode } from 'react';
+import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import { priorityOptions, statusOptions } from '../constant';
 
 export type TodoFormVOType = {
@@ -24,9 +25,8 @@ export type TodoFormVOType = {
 };
 
 type TodoFormProps = {
-  onSubmit: (formValue: TodoFormVOType) => void;
   defaultValue?: Record<keyof TodoFormVOType, string>;
-  buttonText: string;
+  children?: ReactNode;
 };
 
 const todoResolver = createResolver<TodoFormVOType>({
@@ -36,89 +36,143 @@ const todoResolver = createResolver<TodoFormVOType>({
   status: Status,
 });
 
-export const TodoForm = Object.assign(
-  (props: TodoFormProps) => {
-    const { onSubmit, defaultValue, buttonText } = props;
+const TodoFormProvider = (props: TodoFormProps) => {
+  const { defaultValue, children } = props;
+  const form = useForm<TodoFormVOType>({
+    mode: 'onChange',
+    resolver: todoResolver,
+    ...(defaultValue && { defaultValues: defaultValue }),
+  });
 
-    const form = useForm<TodoFormVOType>({
-      mode: 'onChange',
-      resolver: todoResolver,
-      ...(defaultValue && { defaultValues: defaultValue }),
-    });
+  return (
+    <FormProvider {...form}>
+      <Form {...form}>{children}</Form>
+    </FormProvider>
+  );
+};
 
-    const handleSubmit = (formValue: TodoFormVOType) => {
-      const resolved = formValue as unknown as TodoFormVOType;
-      onSubmit(resolved);
-    };
-
-    return (
-      <Form {...form}>
-        <Column css={{ gap: 28 }}>
-          <FormField
-            name="priority"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Priority</FormLabel>
-                <FormRadioGroup
-                  options={priorityOptions}
-                  onValueChange={field.onChange}
-                  value={field.value}
-                  css={{ display: 'flex', gap: 40 }}
-                />
-              </FormItem>
-            )}
+type FormFieldStyledProps = {
+  item?: Interpolation<Theme>;
+  label?: Interpolation<Theme>;
+  field?: Interpolation<Theme>;
+};
+const PriorityField = (props: FormFieldStyledProps) => {
+  return (
+    <FormField
+      name="priority"
+      render={({ field }) => (
+        <FormItem css={[props?.item]}>
+          <FormLabel css={[props?.label]}>Priority</FormLabel>
+          <FormRadioGroup
+            options={priorityOptions}
+            onValueChange={field.onChange}
+            value={field.value}
+            css={[props?.field, { display: 'flex', gap: 40 }]}
           />
+        </FormItem>
+      )}
+    />
+  );
+};
 
-          <FormField
-            name="status"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Status</FormLabel>
-                <FormRadioGroup
-                  options={statusOptions}
-                  onValueChange={field.onChange}
-                  value={field.value}
-                  css={{ display: 'flex', gap: 40 }}
-                />
-              </FormItem>
-            )}
+const StatusField = (props: FormFieldStyledProps) => {
+  return (
+    <FormField
+      name="status"
+      render={({ field }) => (
+        <FormItem css={[props?.item]}>
+          <FormLabel css={[props?.label]}>Status</FormLabel>
+          <FormRadioGroup
+            options={statusOptions}
+            onValueChange={field.onChange}
+            value={field.value}
+            css={[props?.field, { display: 'flex', gap: 40 }]}
           />
+        </FormItem>
+      )}
+    />
+  );
+};
 
-          <FormField
-            name="title"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Title</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+const TitleField = (props: FormFieldStyledProps) => {
+  return (
+    <FormField
+      name="title"
+      render={({ field }) => (
+        <FormItem css={props?.item}>
+          <FormLabel css={props?.label}>Title</FormLabel>
+          <FormControl>
+            <Input css={props?.field} {...field} />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+};
 
-          <FormField
-            name="content"
-            render={({ field }) => (
-              <FormItem css={{ height: '100%' }}>
-                <FormLabel>Content</FormLabel>
-                <FormControl>
-                  <Textarea css={{ height: 200 }} {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+const ContentField = (props: FormFieldStyledProps) => {
+  return (
+    <FormField
+      name="content"
+      render={({ field }) => (
+        <FormItem css={{ height: '100%' }}>
+          <FormLabel>Content</FormLabel>
+          <FormControl>
+            <Textarea css={{ height: 200 }} {...field} />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+};
 
-          <Button
-            onClick={form.handleSubmit(handleSubmit)}
-            css={{ marginTop: 40 }}
-          >
-            {buttonText}
-          </Button>
-        </Column>
-      </Form>
-    );
-  },
-  { displayName: 'TodoForm' },
-);
+const Submit = (
+  props: {
+    children: ReactNode;
+    buttonStyle?: Interpolation<Theme>;
+    onSubmit: (formValue: TodoFormVOType) => void;
+  } & ButtonProps,
+) => {
+  const { onSubmit, children, buttonStyle } = props;
+  const form = useFormContext<TodoFormVOType>();
+
+  return (
+    <Button onClick={form.handleSubmit(onSubmit)} css={[buttonStyle]}>
+      {children}
+    </Button>
+  );
+};
+
+export const TodoForm = Object.assign(TodoFormProvider, {
+  PriorityField,
+  StatusField,
+  TitleField,
+  ContentField,
+  Submit,
+});
+
+// export const TodoForm = Object.assign(
+//   (props: TodoFormProps) => {
+//     const { onSubmit, defaultValue, buttonText } = props;
+
+//     const form = useForm<TodoFormVOType>({
+//       mode: 'onChange',
+//       resolver: todoResolver,
+//       ...(defaultValue && { defaultValues: defaultValue }),
+//     });
+
+//     const handleSubmit = (formValue: TodoFormVOType) => {
+//       const resolved = formValue as unknown as TodoFormVOType;
+//       onSubmit(resolved);
+//     };
+
+//     return (
+//       <Form {...form}>
+//         <Column css={{ gap: 28 }}></Column>
+//       </Form>
+//     );
+//   },
+//   { displayName: 'TodoForm' },
+// );
